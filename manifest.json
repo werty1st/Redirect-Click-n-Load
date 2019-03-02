@@ -1,0 +1,49 @@
+{
+    "description": "Redirect Click'n'Load to remote pyload or jDownloader",
+    "manifest_version": 2,
+    "name": "Redirect Click'n'Load",
+    "author": "Ronny Adams",
+
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": true
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "jquery.min.js",
+                "content_script.js"
+            ],
+            "matches": [
+                "http://localhost:9666/*",
+                "http://cnl.filecrypt.cc:9666/*",
+                "http://127.0.0.1:9666/*"
+            ]
+        }
+    ],
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
+    "browser_action": {
+        "default_icon": {
+            "128": "images/icon.png"
+        },
+        "default_title": "Click'n'Load Request Proxy"
+    },
+    "icons": {
+        "128": "images/icon.png"
+    },
+    "permissions": [
+        "*://*/",
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "tabs",
+        "notifications"
+    ],
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    "version": "1.1.2"
+}
