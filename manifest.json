@@ -10,19 +10,6 @@
         ],
         "persistent": true
     },
-    "content_scripts": [
-        {
-            "js": [
-                "jquery.min.js",
-                "content_script.js"
-            ],
-            "matches": [
-                "http://localhost:9666/*",
-                "http://cnl.filecrypt.cc:9666/*",
-                "http://127.0.0.1:9666/*"
-            ]
-        }
-    ],
     "options_ui": {
         "page": "options.html",
         "chrome_style": true
@@ -37,13 +24,12 @@
         "128": "images/icon.png"
     },
     "permissions": [
-        "*://*/",
+        "*://*/*",
         "webRequest",
         "webRequestBlocking",
         "storage",
-        "tabs",
-        "notifications"
+        "activeTab"
     ],
     "update_url": "https://clients2.google.com/service/update2/crx",
-    "version": "1.1.2"
+    "version": "1.2.0"
 }

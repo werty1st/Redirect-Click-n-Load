@@ -1,3 +1,7 @@
+// zip -1 -x "*screens*" -x "*/\.*" x ".*"  -x "*.zip" -r addon.zip .
+
+
+
 // Saves options to chrome.storage.sync.
 function save_options() {
   var targethost = document.getElementById('targethost').value;

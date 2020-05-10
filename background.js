@@ -22,8 +22,7 @@ chrome.storage.sync.get({
  * @param {*} details 
  */
 function checkurl(details){
-    //console.log(details.url);
-    if ((details.url.match(/^([\S]*:9666)([\S]*)/) && details.url.match(/^([\S]*:9666)([\S]*)/).length >= 2 ) && !pause) {
+    if ( details.url.match(/^[\S]*:9666\//)  && !pause) {
         return { redirectUrl: host + details.url.match(/^([\S]*:9666)([\S]*)/)[2] };
     }
     return {redirectUrl: details.url };
@@ -35,8 +34,7 @@ function checkurl(details){
 var filter = {
     urls: [
         "*://127.0.0.1/*",
-        "*://localhost/*",
-        "*://cnl.filecrypt.cc/*"
+        "*://localhost/*"
     ],
     types: ["main_frame", "sub_frame", "script", "object", "xmlhttprequest"]
 }
