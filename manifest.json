@@ -27,9 +27,8 @@
         "*://*/*",
         "webRequest",
         "webRequestBlocking",
-        "storage",
-        "activeTab"
+        "storage"
     ],
     "update_url": "https://clients2.google.com/service/update2/crx",
-    "version": "1.2.0"
+    "version": "1.2.1"
 }
