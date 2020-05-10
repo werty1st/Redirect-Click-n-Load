@@ -29,3 +29,7 @@ Wait until page gets green
 * check if plugin is enabled (not paused)
 * check if target is running and accessible
 * check options if target hostname is still set
+
+
+
+Video https://www.youtube.com/watch?v=BLyknZbai5g&feature=youtu.be
