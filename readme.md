@@ -18,6 +18,10 @@ Wait until page gets green
 
 ## Changelog
 
+* 2021-05-10
+* * added option to redirect the port number
+* * remove request listener on pause to leave the request untouched
+
 * 2020-05-10
 * * removed donation button
 * * removed unused permissions
