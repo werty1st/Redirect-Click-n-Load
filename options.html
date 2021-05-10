@@ -5,6 +5,9 @@
   <style>
     body { padding: 10px;min-height: 450px; min-width: 500px; }
     #status { display: inline; }
+    input:invalid {
+      border: 2px dashed red;
+    }
   </style>
 </head>
 
@@ -12,8 +15,17 @@
     <h1>Redirect Click'n'Load</h1>
     
     <h2>Settings</h2>
-    <label for="targethost"> Target Hostname/IP </label>
-    <input id="targethost" type="text" placeholder="127.0.0.1">
+    <table>
+      <tr>
+        <td><label for="targethost"> Target Hostname/IP </label></td>
+        <td><input id="targethost" type="text" placeholder="127.0.0.1"></td>
+      </tr>
+      <tr>
+        <td><label for="targetport"> Target Port</label></td>
+       <td><input id="targetport" type="number" placeholder="9666" min="1" max="65535" ></td>
+      </tr>
+    </table>
+
     <button id="save">Save</button><div id="status"></div>
 
     <h2>How it works</h2>

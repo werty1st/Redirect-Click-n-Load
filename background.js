@@ -7,12 +7,15 @@ var pause = false;
 /**
  * load settings from chrome
  */
-chrome.storage.sync.get({
-  targethost: '127.0.0.1',
-  pause: false
-}, function(items) {
-    host = "http://" + items.targethost + ":9666";
-    pause = items.pause;
+chrome.storage.sync.get({ settings: 
+{
+    targethost: '127.0.0.1',
+    targetport: '9666',
+    pause: false
+} 
+}, function(storage) {
+    host = "http://" + storage.settings.targethost + ":" + storage.settings.targetport;
+    pause = storage.settings.pause;
     if (!pause)install_listener();
 });
 

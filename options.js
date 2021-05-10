@@ -5,12 +5,17 @@
 // Saves options to chrome.storage.sync.
 function save_options() {
   var targethost = document.getElementById('targethost').value;
-  chrome.storage.sync.set({
-    targethost: targethost
+  var targetport = document.getElementById('targetport').value;
+
+  chrome.storage.sync.set({ settings:
+    {
+      targethost: targethost,
+      targetport: targetport
+    }
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
-    status.textContent = 'Saved.';
+    status.textContent = ' Saved.';
 
     //reload background script
     chrome.extension.getBackgroundPage().window.location.reload();
@@ -25,10 +30,15 @@ function save_options() {
 // stored in chrome.storage.
 function restore_options() {
   // Use default value color = 'red' and likesColor = true.
-  chrome.storage.sync.get({
-    targethost: '127.0.0.1'
-  }, function(items) {
-    document.getElementById('targethost').value = items.targethost;
+  chrome.storage.sync.get({ settings: 
+    {
+      targethost: '127.0.0.1',
+      targetport: '9666'
+    }    
+  }, function(storage) {
+    console.log(storage.settings)
+    document.getElementById('targethost').value = storage.settings.targethost;
+    document.getElementById('targetport').value = parseInt(storage.settings.targetport);
   });
 }
 
