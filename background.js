@@ -13,7 +13,7 @@ chrome.storage.sync.get({
 }, function(items) {
     host = "http://" + items.targethost + ":9666";
     pause = items.pause;
-    install_listener();
+    if (!pause)install_listener();
 });
 
 /**
@@ -43,9 +43,15 @@ var filter = {
  * install onBeforeRequestListener after settings are loaded
  */
 function install_listener(){
-    chrome.webRequest.onBeforeRequest.addListener( checkurl,filter,["blocking"]);
+    chrome.webRequest.onBeforeRequest.addListener( checkurl, filter, ["blocking"]);
 }
 
+/**
+ * if paused remove onBeforeRequestListener
+ */
+ function remove_listener(){
+    chrome.webRequest.onBeforeRequest.removeListener( checkurl );
+}
 
 
 /**
@@ -68,12 +74,14 @@ function save_options(pause, callback) {
  */
 function disableBrowserAction(){
     chrome.browserAction.setIcon({path:"images/icon_status_pause.png"});
+    remove_listener();
 }
 /**
  * set extension icon to normal state
  */
 function enableBrowserAction(){
     chrome.browserAction.setIcon({path:"images/icon_status.png"});
+    install_listener();
 }
 
 /**
@@ -85,7 +93,7 @@ function updateState( ){
         if(pause == false){
             pause = true;
             save_options(pause,function(){
-                disableBrowserAction();    
+                disableBrowserAction();
             });
         }else{
             pause = false;
