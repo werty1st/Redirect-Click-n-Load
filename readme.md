@@ -18,14 +18,21 @@ Wait until page gets green
 
 ## Changelog
 
+* 2021-11-08
+  * don't return redirectUrl if not matched. fixes [#5](https://github.com/werty1st/Redirect-Click-n-Load/issues/5)
+
+<br>
+
 * 2021-05-10
-* * added option to redirect the port number
-* * remove request listener on pause to leave the request untouched
+  * added option to redirect the port number
+  * remove request listener on pause to leave the request untouched
+
+<br>
 
 * 2020-05-10
-* * removed donation button
-* * removed unused permissions
-* * removed unused code
+  * removed donation button
+  * removed unused permissions
+  * removed unused code
 
 
 ## Troubleshooting

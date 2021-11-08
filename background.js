@@ -28,7 +28,6 @@ function checkurl(details){
     if ( details.url.match(/^[\S]*:9666\//)  && !pause) {
         return { redirectUrl: host + details.url.match(/^([\S]*:9666)([\S]*)/)[2] };
     }
-    return {redirectUrl: details.url };
 }
 
 /**
