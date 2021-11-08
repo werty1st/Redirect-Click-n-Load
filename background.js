@@ -33,11 +33,12 @@ function checkurl(details){
 
 /**
  * filter settings url
+ * https://jdownloader.org/knowledge/wiki/glossary/cnl2
  */
 var filter = {
     urls: [
-        "*://127.0.0.1/*",
-        "*://localhost/*"
+        "http://127.0.0.1:9666/*",
+        "http://localhost:9666/*"
     ],
     types: ["main_frame", "sub_frame", "script", "object", "xmlhttprequest"]
 }
