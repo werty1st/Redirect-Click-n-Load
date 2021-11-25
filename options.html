@@ -24,6 +24,26 @@
         <td><label for="targetport"> Target Port</label></td>
        <td><input id="targetport" type="number" placeholder="9666" min="1" max="65535" ></td>
       </tr>
+      <tr>
+        <td><label for="targetproto"> Target Protocol</label></td>
+        <td>
+          <select name="proto" id="targetproto" required>
+            <option value="http">http</option>
+            <option value="https">https</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">Add Authentication Header (only if Protocol is https)</th>
+      </tr>
+      <tr>
+        <td><label for="targetuser"> Username</label></td>
+       <td><input id="targetuser" type="text" placeholder="username" ></td>
+      </tr>
+      <tr>
+        <td><label for="targetpasswd"> Password</label></td>
+       <td><input id="targetpasswd" type="password" placeholder="****" min="8" max="128" ></td>
+      </tr>
     </table>
 
     <button id="save">Save</button><div id="status"></div>

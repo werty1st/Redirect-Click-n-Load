@@ -3,21 +3,50 @@
  */
 var host = "http://127.0.0.1:9666";
 var pause = false;
+var basicAuthHeader = false;
+var proto = "http";
+
+/**
+ * filter settings url
+ */
+ var filter = {
+    urls: [
+        "*://127.0.0.1/*",
+        "*://localhost/*"        
+    ],
+    types: ["main_frame", "sub_frame", "script", "object", "xmlhttprequest"]
+}
+
 
 /**
  * load settings from chrome
  */
 chrome.storage.sync.get({ settings: 
 {
-    targethost: '127.0.0.1',
-    targetport: '9666',
-    pause: false
+    targethost: "127.0.0.1",
+    targetport: "9666",
+    targetproto: "http",
+    pause: false,
+    targetuser: "",
+    targetpasswd: ""
 } 
 }, function(storage) {
-    host = "http://" + storage.settings.targethost + ":" + storage.settings.targetport;
+    host = storage.settings.targetproto + "://" + storage.settings.targethost + ":" + storage.settings.targetport;
     pause = storage.settings.pause;
+    filter.urls.push("*://" + storage.settings.targethost + "/*");
+    proto = storage.settings.targetproto
+
+    //build auth header
+    if (storage.settings.targetuser.length && storage.settings.targetpasswd.length > 0 ){
+        basicAuthHeader = {
+            name: "Authorization",
+            value: "Basic " + btoa( storage.settings.targetuser + ":" +  storage.settings.targetpasswd )        
+        }
+    }
+
     if (!pause)install_listener();
 });
+
 
 /**
  * Check URL for port 9666 and replace host
@@ -30,22 +59,35 @@ function checkurl(details){
     }
 }
 
+
 /**
- * filter settings url
+ * Add Basic Auth Header if request is made via https
+ * @param {*} details 
  */
-var filter = {
-    urls: [
-        "*://127.0.0.1/*",
-        "*://localhost/*"
-    ],
-    types: ["main_frame", "sub_frame", "script", "object", "xmlhttprequest"]
+ function checkHeader(details){
+    console.log(details);
+    const headers = details.requestHeaders;
+
+    //if proto==https and authentication is set
+    //add basic auth
+    if (proto=="https" && basicAuthHeader) {
+        headers.push(basicAuthHeader);
+
+        return {
+            requestHeaders: headers
+        }
+    }
 }
+
+
+
 
 /**
  * install onBeforeRequestListener after settings are loaded
  */
 function install_listener(){
     chrome.webRequest.onBeforeRequest.addListener( checkurl, filter, ["blocking"]);
+    chrome.webRequest.onBeforeSendHeaders.addListener( checkHeader, filter, [ "blocking", "requestHeaders"]);
 }
 
 /**
@@ -53,6 +95,7 @@ function install_listener(){
  */
  function remove_listener(){
     chrome.webRequest.onBeforeRequest.removeListener( checkurl );
+    chrome.webRequest.onBeforeSendHeaders.removeListener( checkHeader );
 }
 
 

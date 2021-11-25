@@ -4,13 +4,14 @@
 
 // Saves options to chrome.storage.sync.
 function save_options() {
-  var targethost = document.getElementById('targethost').value;
-  var targetport = document.getElementById('targetport').value;
 
   chrome.storage.sync.set({ settings:
     {
-      targethost: targethost,
-      targetport: targetport
+      targethost:   document.getElementById('targethost').value,
+      targetport:   document.getElementById('targetport').value,
+      targetproto:  document.getElementById('targetproto').value,
+      targetuser:   document.getElementById('targetuser').value,
+      targetpasswd: document.getElementById('targetpasswd').value
     }
   }, function() {
     // Update status to let user know options were saved.
@@ -33,12 +34,19 @@ function restore_options() {
   chrome.storage.sync.get({ settings: 
     {
       targethost: '127.0.0.1',
-      targetport: '9666'
-    }    
+      targetport: '9666',
+      targetproto: 'http',
+      targetuser: "",
+      targetpasswd: ""
+
+    }
   }, function(storage) {
     console.log(storage.settings)
     document.getElementById('targethost').value = storage.settings.targethost;
     document.getElementById('targetport').value = parseInt(storage.settings.targetport);
+    document.getElementById('targetproto').value = storage.settings.targetproto;
+    document.getElementById('targetuser').value = storage.settings.targetuser;
+    document.getElementById('targetpasswd').value = storage.settings.targetpasswd;
   });
 }
 
