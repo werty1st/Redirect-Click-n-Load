@@ -65,14 +65,12 @@ function checkurl(details){
  * @param {*} details 
  */
  function checkHeader(details){
-    console.log(details);
-    const headers = details.requestHeaders;
-
+    
     //if proto==https and authentication is set
     //add basic auth
     if (proto=="https" && basicAuthHeader) {
+        const headers = details.requestHeaders;
         headers.push(basicAuthHeader);
-
         return {
             requestHeaders: headers
         }
