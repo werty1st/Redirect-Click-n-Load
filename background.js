@@ -33,11 +33,10 @@ chrome.storage.sync.get({ settings:
 }, function(storage) {
     host = storage.settings.targetproto + "://" + storage.settings.targethost + ":" + storage.settings.targetport;
     pause = storage.settings.pause;
-    filter.urls.push("*://" + storage.settings.targethost + "/*");
     proto = storage.settings.targetproto
 
     //build auth header
-    if (storage.settings.targetuser.length && storage.settings.targetpasswd.length > 0 ){
+    if (storage.settings.targetuser.length > 0 && storage.settings.targetpasswd.length > 0 ){
         basicAuthHeader = {
             name: "Authorization",
             value: "Basic " + btoa( storage.settings.targetuser + ":" +  storage.settings.targetpasswd )        
