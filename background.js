@@ -4,7 +4,6 @@
 var host = "http://127.0.0.1:9666";
 var pause = false;
 var basicAuthHeader = false;
-var proto = "http";
 
 /**
  * filter settings url
@@ -33,11 +32,13 @@ chrome.storage.sync.get({ settings:
 }, function(storage) {
     host = storage.settings.targetproto + "://" + storage.settings.targethost + ":" + storage.settings.targetport;
     pause = storage.settings.pause;
-    filter.urls.push("*://" + storage.settings.targethost + "/*");
-    proto = storage.settings.targetproto
+        
+    //build auth header (must not be used without https)
+    if (storage.settings.targetproto == "https" && storage.settings.targetuser.length > 0 && storage.settings.targetpasswd.length > 0 ){
+        
+        //required for checkHeader function
+        filter.urls.push("*://" + storage.settings.targethost + "/*");
 
-    //build auth header
-    if (storage.settings.targetuser.length && storage.settings.targetpasswd.length > 0 ){
         basicAuthHeader = {
             name: "Authorization",
             value: "Basic " + btoa( storage.settings.targetuser + ":" +  storage.settings.targetpasswd )        
@@ -68,7 +69,7 @@ function checkurl(details){
     
     //if proto==https and authentication is set
     //add basic auth
-    if (proto=="https" && basicAuthHeader) {
+    if (basicAuthHeader) {
         const headers = details.requestHeaders;
         headers.push(basicAuthHeader);
         return {

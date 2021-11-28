@@ -3,7 +3,12 @@
     "manifest_version": 2,
     "name": "Redirect Click'n'Load",
     "author": "Ronny Adams",
-
+	"browser_specific_settings": {
+        "gecko": {
+            "id": "com.github.werty1st.redirectclicknload",
+            "strict_min_version": "42.0"
+        }
+    },
     "background": {
         "scripts": [
             "background.js"
@@ -29,5 +34,5 @@
         "webRequestBlocking",
         "storage"
     ],
-    "version": "1.4.0"
+    "version": "1.4.1"
 }
